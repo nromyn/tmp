@@ -31,12 +31,16 @@
     {{ -20.6 | round(1)}}
   {% elif states('sensor.break_even_copf')|float < 2.22 and states('sensor.break_even_copf')|float >= 2.15 %}
     {{ -23.3 | round(1)}}
-  {% elif states('sensor.break_even_copf')|float < 2.07 and states('sensor.break_even_copf')|float >= 1.98 %}
+  {% elif states('sensor.break_even_copf')|float < 2.15 and states('sensor.break_even_copf')|float >= 2.07 %}
     {{ -26.1 | round(1)}}
+  {% elif states('sensor.break_even_copf')|float < 2.07 and states('sensor.break_even_copf')|float >= 1.98 %}
+    {{ -28.9 | round(1)}}
   {% elif states('sensor.break_even_copf')|float < 1.98 %}
     {{ -31.7 | round(1)}}
+  {% else %}
+    {{ None }}
   {% endif %}
 
 {% else %}
  {{None}}
-{% endif %}
+ {% endif %}
