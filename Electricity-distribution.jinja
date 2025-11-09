@@ -1,0 +1,11 @@
+{% if has_value('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate') %}
+  {{
+    ( state_attr('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate','retail_transmission_network_rate')|float()
+    + state_attr('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate','retail_transmission_connection_rate')|float()
+    + state_attr('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate','wholesale_market_service_charge')|float()
+    + state_attr('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate','rural_remote_rate_protection')|float()
+    + state_attr('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate','distribution_variable_charge')|float())| round(4)
+  }}
+{% else %}
+ {{None}}
+{% endif %}
