@@ -1,0 +1,17 @@
+{% if has_value('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate') and has_value('sensor.electricity_distribution') %}
+  {{
+  (
+    (
+    states('sensor.electricity_distribution')|float() |round(4)
+    + states('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate') | float()
+    ) | round(4) 
+    * (1 - state_attr('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate','ontario_electricity_rebate') | float() ) | round(4) 
+    * state_attr('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate','loss_factor') | float() |round(4)
+  * (1+state_attr('sensor.grandbridge_energy_inc_energy_rate_zone_residential_electricity_rate','harmonized_sales_tax')| float(0.13) ) | round(4)
+  ) | round(4)
+  }}
+
+
+{% else %}
+ {{None}}
+{% endif %}
