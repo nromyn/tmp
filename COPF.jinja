@@ -1,0 +1,14 @@
+{% if has_value('sensor.electricity_rate') and has_value('sensor.natural_gas_rate_kwh') %}
+  {{
+ (
+ 0.9
+ * states('sensor.electricity_rate') |float (0.15) | round(4)
+ / states('sensor.natural_gas_rate_kwh')|float(0.03) | round(4)
+ )
+ | round(2)
+}}
+
+
+{% else %}
+ {{ None }}
+{% endif %}
