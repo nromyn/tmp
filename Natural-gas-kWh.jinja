@@ -1,0 +1,19 @@
+{% if has_value('sensor.union_gas_south_natural_gas_rate') %}
+{{
+  (
+   (
+    state_attr('sensor.union_gas_south_natural_gas_rate','gas_supply_charge') +
+    state_attr('sensor.union_gas_south_natural_gas_rate','gas_supply_charge_price_adjustment') +
+    state_attr('sensor.union_gas_south_natural_gas_rate','transportation_charge') +
+    state_attr('sensor.union_gas_south_natural_gas_rate','storage_charge') +
+    state_attr('sensor.union_gas_south_natural_gas_rate','storage_charge_price_adjustment') +
+    state_attr('sensor.union_gas_south_natural_gas_rate','delivery_charge_tier_1') +
+    state_attr('sensor.union_gas_south_natural_gas_rate','delivery_charge_price_adjustment') +
+    state_attr('sensor.union_gas_south_natural_gas_rate','facility_carbon_charge')
+   ) / 10.34971798
+ ) | round(4)
+}}
+
+{% else %}
+ {{None}}
+{% endif %}
